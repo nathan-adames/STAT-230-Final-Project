@@ -1,0 +1,77 @@
+---
+title: "Final Project -- Extinction Rates"
+subtitle: "STAT 230 Spring 2025"
+authors: "Nathan Adames, Emma Miranda, Ashle Jerez"
+format:
+  html:
+    embed-resources: true
+---
+
+# Data
+
+Load libraries (`tidyverse`), and read the data in.
+
+```{r}
+library(tidyverse)
+
+extinction <- read.csv("final-project.csv")
+
+```
+
+# Question
+
+> Have rates of extinction increased or decreased for animals overtime?
+
+## Species over time
+
+What years had the highest number of extinct animals in the past 30 years? (plot a histogram)
+
+```{r}
+
+extinction |>
+  ggplot(aes(x = Year.Assessed)) +
+  geom_histogram(bins = 60)
+
+```
+
+## Distribution of animals x year assessed
+
+What is the distribution of extinction rates between the different animals and the year they were assessed? (plot a box plot)
+
+```{r}
+extinction |>
+ggplot(aes(x = Year.Assessed, y = Animal)) +
+geom_boxplot()
+
+
+```
+
+## What is the average number of extinct species per year?
+
+Given the fact that there are 231 observations over 28 years in this data set, the mean value would be about 8.25 species per year.
+
+## Standard Deviation
+
+What is the standard deviation of the recorded number of extinct species over time?
+
+```{r}
+
+extinction |>
+  summarize(sd = sd(Year.Assessed, na.rm = TRUE))
+
+
+```
+
+# Minimums and Maximums
+
+```{r}
+
+extinction |>
+  summarize(min = min(Year.Assessed, na.rm = TRUE),
+            max = max(Year.Assessed, na.rm = TRUE))
+
+```
+
+# Conclusion - Have rates of extinction increased or decreased over time?
+
+Based on the date set that we used for this analysis, I think it's fair to say that the extinction rate has decreased. The histogram we created shows that there were just under 100 species reportedly extinct in the year 1996. As time has gone on, there has never been a year where the number of extinctions have gone that high, the closest of which would be the year 2000 with there being a report of about 60 species going extinct in that year. According to our box plot, the animals that seemed to appear most frequently in the data set were different species of flies and snails. The average number of species going extinct per year is 8.25, however this doesn't seem fully applicable to our data considering there is a ten year gap in which no species were reported to be extinct between the years 2000 and 2010. The standard deviation of the data set came out to 9.97916 which is reltively high. This means that our data doesn't have a predictable pattern and acts very sporadically. A good example of this would be the observable spike of extinctions in the year 2013 followed by very low rates of extinction from 2014 to 2022, only for there to be an even larger spike in 2023 than there was in 2013. Overall, based on all of the data we've collected and observed, I think it's safe to say that extinction rates have taken a noticeable decrease over time.
